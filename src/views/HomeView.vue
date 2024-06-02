@@ -1,12 +1,22 @@
 <template>
 	<main>
-		<h1>Test</h1>
-		<h1>My Pokémon Project</h1>
-		<p>
-			Here you can find some categories to choose from to learn more about the
-			world of Pokémon!
-		</p>
+		<div class="home">
+			<h1 class="">My Pokémon Project</h1>
+			<p>
+				Here you can find some categories to choose from to learn more about the
+				world of Pokémon!
+			</p>
+		</div>
 	</main>
 </template>
 
-<script setup></script>
+<script>
+export default {
+	name: "HomeView",
+	components: {},
+
+	setup() {
+		// @@
+	},
+}
+</script>
