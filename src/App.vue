@@ -2,7 +2,8 @@
 	<div id="nav">
 		<router-link to="/">Home</router-link>
 	</div>
-	<HomeView />
+
+	<router-view />
 </template>
 
 <script setup>
@@ -11,6 +12,8 @@ import HomeView from "./views/HomeView.vue"
 </script>
 
 <style lang="scss">
+$brand-color-01: #4fc1a6;
+
 #app {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
@@ -27,6 +30,25 @@ import HomeView from "./views/HomeView.vue"
 			&.router-link-exact-active {
 				color: #42b983;
 			}
+		}
+	}
+
+	.poketitle {
+		font-size: 1.875rem;
+		font-weight: 600;
+		line-height: 2.25rem;
+	}
+	.poketext {
+		font-size: 1rem;
+		font-weight: 500;
+		line-height: 1.5rem;
+	}
+	.brand-color-01-background {
+		background-color: $brand-color-01;
+		color: #fff;
+		&:hover,
+		&.active {
+			background-color: darken($brand-color-01, 15%);
 		}
 	}
 }
