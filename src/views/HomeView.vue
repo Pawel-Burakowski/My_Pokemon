@@ -7,7 +7,10 @@
 		</p>
 
 		<ul class="categories mt-9 ml-auto mr-auto max-w-md">
-			<li class="categories_element brand-color-01-background">
+			<li
+				class="categories_element brand-color-01-background"
+				@click="$router.push({ name: 'PokemonList' })"
+			>
 				<span class="categories_element_text">Pokédex</span>
 				<img class="categories_element_svg" :src="pokeballSVG" alt="Pokeball" />
 			</li>
@@ -18,7 +21,7 @@
 <script>
 export default {
 	name: "HomeView",
-	data() {
+	setup() {
 		return {
 			pokeballSVG: "../src/assets/svg/pokeball.svg",
 		}
@@ -26,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $breakpoint-max-mobile: 767px;
 $breakpoint-min-desktop: 768px;
 #home {
