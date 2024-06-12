@@ -1,5 +1,20 @@
 # My_Pokemon
 
+<br/>
+
+![status badge](https://img.shields.io/badge/status-in%20progress-yellow)
+
+<br/>
+
+## :hammer_and_pick: Built With
+
+- Vue
+- JavaScript
+- SCSS
+- [PokéApi](https://pokeapi.co/)
+
+<br/>
+
 ## Project setup
 
 ```
@@ -17,3 +32,14 @@ npm run dev
 ```
 npm run build
 ```
+
+- Vue
+- JavaScript
+- SCSS
+- [PokéApi](https://pokeapi.co/)
+
+<br/>
+
+## :clap: Acknowledgments
+
+- Icons: https://freesvg.org/
