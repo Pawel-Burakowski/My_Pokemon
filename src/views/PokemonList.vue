@@ -3,17 +3,18 @@
 
 	<div
 		id="pokemon-list"
-		class="max-w-3xl ml-auto mr-auto my-8 mx-5 flex flex-wrap"
+		class="max-w-4xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
 		<div
 			v-for="pokemon in allPokemon"
 			:key="pokemon.id"
 			class="pokemon-list-element"
+			:class="pokemon.types.map(type => type.type.name).join(' ')"
 		>
 			<img
-				class="pokemon-list-element-image"
+				class="pokemon-list-element-image mx-auto block"
 				:src="pokemon.sprites.front_default"
-				alt="{{ pokemon.name }} image"
+				:alt="'Image of ' + pokemon.name"
 			/>
 
 			<div class="pokemon-list-element-name text-lg">{{ pokemon.name }}</div>
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import { onBeforeUnmount, onMounted, reactive, toRefs } from "vue"
+import { onBeforeUnmount, onMounted, reactive, toRefs, computed } from "vue"
 
 export default {
 	name: "PokemonList",
@@ -102,4 +103,63 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#pokemon-list {
+	.pokemon-list-element {
+		background-color: #d1d1d1;
+		border-radius: 15px;
+		margin: 6px;
+		min-width: 150px;
+		padding: 6px;
+		&.poison {
+			background-color: purple;
+		}
+		&.bug {
+			background-color: lightgreen;
+		}
+		&.ground {
+			background-color: brown;
+		}
+		&.flying {
+			background-color: lightskyblue;
+		}
+		&.fairy {
+			background-color: lightpink;
+		}
+		&.fighting {
+			background-color: rgb(155, 23, 0);
+		}
+		&.psychic {
+			background-color: plum;
+		}
+		&.dragon {
+			background-color: silver;
+		}
+		&.dark {
+			background-color: black;
+		}
+		&.ghost {
+			background-color: rgb(160, 202, 209);
+		}
+		&.steel,
+		&.rock {
+			background-color: rgb(80, 88, 90);
+		}
+		&.ice {
+			background-color: rgb(137, 220, 235);
+		}
+		&.electric {
+			background-color: yellow;
+		}
+		&.grass {
+			background-color: green;
+		}
+		&.fire {
+			background-color: red;
+		}
+		&.water {
+			background-color: blue;
+		}
+	}
+}
+</style>
