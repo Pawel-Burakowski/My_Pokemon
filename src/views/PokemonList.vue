@@ -8,7 +8,7 @@
 		<div
 			v-for="pokemon in allPokemon"
 			:key="pokemon.id"
-			class="pokemon-list-element"
+			class="pokemon-list-element p-1.5 m-1.5 rounded-2xl cursor-pointer"
 			:class="pokemon.types.map(type => type.type.name).join(' ')"
 		>
 			<img
@@ -17,18 +17,26 @@
 				:alt="'Image of ' + pokemon.name"
 			/>
 
-			<div class="pokemon-list-element-name text-lg">{{ pokemon.name }}</div>
+			<div
+				class="pokemon-list-element-name text-lg capitalize font-semibold text-white"
+			>
+				{{ pokemon.name }}
+			</div>
 
-			<div class="pokemon-list-element-number">
+			<div class="pokemon-list-element-number text-white">
 				{{ pokemon.id.toString().padStart(3, "0") }}
 			</div>
 
 			<div
-				v-for="type in pokemon.types"
-				:key="type.type.name"
-				class="pokemon-list-element-types"
+				class="pokemon-list-element-types-container flex flex-row flex-wrap justify-center mt-1"
 			>
-				{{ type.type.name }}
+				<div
+					v-for="type in pokemon.types"
+					:key="type.type.name"
+					class="pokemon-list-element-types text-white px-1.5 py-0.5 rounded-lg text-sm mx-1"
+				>
+					{{ type.type.name }}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -53,22 +61,21 @@ export default {
 		const loadPokemon = async () => {
 			state.loading = true
 
-			fetch(
-				`https://pokeapi.co/api/v2/pokemon?limit=40&orderBy=id&offset=${state.offset}`
-			)
+			fetch(`https://pokeapi.co/api/v2/pokemon?limit=40&offset=${state.offset}`)
 				.then(response => response.json())
 				.then(data => {
-					data.results.forEach(pokemon => {
-						fetch(pokemon.url)
+					const promises = data.results.map(pokemon => {
+						return fetch(pokemon.url)
 							.then(response => response.json())
 							.then(data => {
-								console.log(data) // The data for each Pokemon
 								state.allPokemon.push(data)
-								console.log(state.allPokemon)
 							})
 					})
-					state.offset += 40
-					state.loading = false
+					Promise.all(promises).then(() => {
+						state.allPokemon.sort((a, b) => a.id - b.id)
+						state.offset += 40
+						state.loading = false
+					})
 				})
 		}
 
@@ -106,59 +113,111 @@ export default {
 <style lang="scss" scoped>
 #pokemon-list {
 	.pokemon-list-element {
-		background-color: #d1d1d1;
-		border-radius: 15px;
-		margin: 6px;
 		min-width: 150px;
-		padding: 6px;
+		background-color: #b9b7b7;
+		.pokemon-list-element-types {
+			background-color: darken(#b9b7b7, 8%);
+		}
+		.pokemon-list-element-types {
+			height: fit-content;
+			width: fit-content;
+		}
 		&.poison {
-			background-color: purple;
+			background-color: #d296ed;
+			.pokemon-list-element-types {
+				background-color: darken(#d296ed, 8%);
+			}
 		}
 		&.bug {
-			background-color: lightgreen;
+			background-color: #b3d374;
+			.pokemon-list-element-types {
+				background-color: darken(#b3d374, 8%);
+			}
 		}
 		&.ground {
-			background-color: brown;
+			background-color: #ff8054;
+			.pokemon-list-element-types {
+				background-color: darken(#ff8054, 8%);
+			}
 		}
 		&.flying {
-			background-color: lightskyblue;
+			background-color: #a2b3cb;
+			.pokemon-list-element-types {
+				background-color: darken(#a2b3cb, 8%);
+			}
 		}
 		&.fairy {
 			background-color: lightpink;
+			.pokemon-list-element-types {
+				background-color: darken(lightpink, 8%);
+			}
 		}
 		&.fighting {
-			background-color: rgb(155, 23, 0);
+			background-color: #ff7272;
+			.pokemon-list-element-types {
+				background-color: darken(#ff7272, 8%);
+			}
 		}
 		&.psychic {
 			background-color: plum;
+			.pokemon-list-element-types {
+				background-color: darken(plum, 8%);
+			}
 		}
 		&.dragon {
 			background-color: silver;
+			.pokemon-list-element-types {
+				background-color: darken(silver, 8%);
+			}
 		}
 		&.dark {
-			background-color: black;
+			background-color: #7c7c7c;
+			.pokemon-list-element-types {
+				background-color: darken(#7c7c7c, 8%);
+			}
 		}
 		&.ghost {
-			background-color: rgb(160, 202, 209);
+			background-color: #a0cad1;
+			.pokemon-list-element-types {
+				background-color: darken(#a0cad1, 8%);
+			}
 		}
 		&.steel,
 		&.rock {
-			background-color: rgb(80, 88, 90);
+			background-color: #a1a2a3;
+			.pokemon-list-element-types {
+				background-color: darken(#a1a2a3, 8%);
+			}
 		}
 		&.ice {
-			background-color: rgb(137, 220, 235);
+			background-color: #89dceb;
+			.pokemon-list-element-types {
+				background-color: darken(#89dceb, 8%);
+			}
 		}
 		&.electric {
-			background-color: yellow;
+			background-color: #ffe965;
+			.pokemon-list-element-types {
+				background-color: darken(#ffe965, 8%);
+			}
 		}
 		&.grass {
-			background-color: green;
+			background-color: #62d5b4;
+			.pokemon-list-element-types {
+				background-color: darken(#62d5b4, 8%);
+			}
 		}
 		&.fire {
-			background-color: red;
+			background-color: #ffa761;
+			.pokemon-list-element-types {
+				background-color: darken(#ffa761, 8%);
+			}
 		}
 		&.water {
-			background-color: blue;
+			background-color: #8bacf6;
+			.pokemon-list-element-types {
+				background-color: darken(#8bacf6, 8%);
+			}
 		}
 	}
 }
