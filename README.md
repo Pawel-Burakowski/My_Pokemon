@@ -43,3 +43,5 @@ npm run build
 ## :clap: Acknowledgments
 
 - Icons: https://freesvg.org/
+
+- Design inspired by: [Pokédex App](https://dribbble.com/shots/6540871-Pokedex-App/attachments/6540871-Pokedex-App?mode=media), [Mobile Pokédex App - Design Exploration](https://dribbble.com/shots/16833947-Mobile-Pokedex-App-Design-Exploration?utm_source=Clipboard_Shot&utm_campaign=sulistryono&utm_content=Mobile%20Pokedex%20App%20-%20Design%20Exploration&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=sulistryono&utm_content=Mobile%20Pokedex%20App%20-%20Design%20Exploration&utm_medium=Social_Share)
