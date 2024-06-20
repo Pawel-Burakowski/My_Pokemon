@@ -10,7 +10,7 @@
 		/>
 
 		<div
-			class="pokemon-list-element-name text-lg capitalize font-semibold text-white"
+			class="pokemon-list-element-name text-lg capitalize font-semibold text-white truncate"
 		>
 			{{ pokemon.name }}
 		</div>
@@ -46,6 +46,11 @@ export default {
 <style lang="scss" scoped>
 .pokemon-list-element {
 	min-width: 150px;
+
+	@media (min-width: 992px) {
+		max-width: 150px;
+	}
+
 	background-color: #b9b7b7;
 	.pokemon-list-element-types {
 		background-color: darken(#b9b7b7, 8%);
