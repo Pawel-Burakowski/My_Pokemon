@@ -1,5 +1,6 @@
 <template>
-	<div
+	<router-link
+		:to="`/pokemon/${pokemon.name}`"
 		class="pokemon-list-element p-1.5 m-1.5 rounded-2xl cursor-pointer"
 		:class="pokemon.types.map(type => type.type.name).join(' ')"
 	>
@@ -30,7 +31,7 @@
 				{{ type.type.name }}
 			</div>
 		</div>
-	</div>
+	</router-link>
 </template>
 
 <script>
