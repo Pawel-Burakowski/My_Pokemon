@@ -1,6 +1,6 @@
 <template>
 	<router-link
-		:to="`/pokemon/${pokemon.name}`"
+		:to="`/pokemon/${pokemon.id}`"
 		class="pokemon-list-element p-1.5 m-1.5 rounded-2xl cursor-pointer"
 		:class="pokemon.types.map(type => type.type.name).join(' ')"
 	>
