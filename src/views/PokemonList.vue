@@ -18,7 +18,7 @@
 
 <script>
 import PokemonListElement from "./PokemonListElement.vue"
-import { onBeforeUnmount, onMounted, reactive, toRefs, computed } from "vue"
+import { onBeforeUnmount, onMounted, reactive, toRefs } from "vue"
 
 export default {
 	name: "PokemonList",
@@ -82,7 +82,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-#pokemon-list {
-}
-</style>
+<style lang="scss" scoped></style>
