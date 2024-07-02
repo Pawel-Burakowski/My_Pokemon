@@ -11,6 +11,7 @@
 - Vue
 - JavaScript
 - SCSS
+- TailwindCSS
 - [PokéApi](https://pokeapi.co/)
 
 <br/>

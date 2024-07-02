@@ -1,24 +1,30 @@
 <template>
-	<div id="pokemon-detail-view" class="max-w-4xl ml-auto mr-auto">
+	<div id="pokemon-detail-view">
 		<div v-if="loading">Loading...</div>
-		<div v-else>
+		<div v-else class="max-w-4xl ml-auto mr-auto pb-10">
 			<div id="pokemon-main-info">
-				<div>
-					<h2 class="text-lg capitalize font-semibold" v-if="pokemon.name">
-						{{ pokemon.name.replace("-", " ") }}
-					</h2>
-					<div
-						v-for="type in pokemon.types"
-						:key="type.type.name"
-						class="px-1.5 py-0.5 rounded-lg text-sm mx-1"
-					>
-						{{ type.type.name }}
+				<div class="flex flex-row justify-between">
+					<div>
+						<h2
+							class="text-3xl text-white text-left capitalize font-semibold mx-2"
+							v-if="pokemon.name"
+						>
+							{{ pokemon.name.replace("-", " ") }}
+						</h2>
+						<div class="text-left mt-2 mx-1">
+							<span
+								v-for="type in pokemon.types"
+								:key="type.type.name"
+								class="pokemon-element-types text-white capitalize px-2 py-1 rounded-lg text-sm mx-1"
+							>
+								{{ type.type.name }}
+							</span>
+						</div>
+					</div>
+					<div class="text-3xl text-white mx-2">
+						<span>#{{ pokemon.id }}</span>
 					</div>
 				</div>
-				<div>
-					<span>{{ pokemon.id }}</span>
-				</div>
-
 				<img
 					v-if="pokemon.sprites"
 					:src="pokemon.sprites.other['official-artwork'].front_default"
@@ -27,8 +33,11 @@
 				/>
 			</div>
 
-			<div id="pokemon-detailed-info">
-				<ul class="flex flex-row items-center justify-between">
+			<div
+				id="pokemon-detailed-info"
+				class="bg-white rounded-3xl px-8 pb-8 pt-16 mx-3"
+			>
+				<ul class="flex flex-row items-start justify-between pb-4">
 					<li
 						@click="activeTab = 'about'"
 						:class="{ active: activeTab === 'about' }"
@@ -55,70 +64,66 @@
 					</li>
 				</ul>
 
-				<div v-if="activeTab === 'about'" id="about">
+				<div id="about" v-if="activeTab === 'about'">
 					<table>
-						<tbody>
-							<tr v-if="pokemon.species">
-								<td>Species</td>
-								<td class="capitalize">{{ pokemon.species.name }}</td>
-							</tr>
-							<tr>
-								<td>Height</td>
-								<td>{{ pokemon.height }}</td>
-							</tr>
-							<tr>
-								<td>Weight</td>
-								<td>{{ pokemon.weight }}</td>
-							</tr>
-							<tr>
-								<td>Abilities</td>
-								<td>
-									<span
-										v-for="(ability, index) in pokemon.abilities"
-										:key="ability.ability.name"
-										class="custom-capitalize capitalize"
-									>
-										<span v-if="index !== 0">,</span>
-										{{ ability.ability.name.replace("-", " ") }}
-									</span>
-								</td>
-							</tr>
-						</tbody>
+						<tr v-if="pokemon.species">
+							<td>Species</td>
+							<td class="capitalize">{{ pokemon.species.name }}</td>
+						</tr>
+						<tr>
+							<td>Height</td>
+							<td>{{ pokemon.height }}</td>
+						</tr>
+						<tr>
+							<td>Weight</td>
+							<td>{{ pokemon.weight }}</td>
+						</tr>
+						<tr>
+							<td>Abilities</td>
+							<td>
+								<span
+									v-for="(ability, index) in pokemon.abilities"
+									:key="ability.ability.name"
+									class="custom-capitalize capitalize"
+								>
+									<span v-if="index !== 0">,</span>
+									{{ ability.ability.name.replace("-", " ") }}
+								</span>
+							</td>
+						</tr>
 					</table>
 				</div>
 
-				<div v-if="activeTab === 'base-stats'" id="base-stats">
+				<div id="base-stats" v-if="activeTab === 'base-stats'">
 					<table>
-						<tbody>
-							<tr>
-								<td>HP</td>
-								<td class="capitalize">{{ pokemon.stats[0].base_stat }}</td>
-							</tr>
-							<tr>
-								<td>Attack</td>
-								<td class="capitalize">{{ pokemon.stats[1].base_stat }}</td>
-							</tr>
-							<tr>
-								<td>Defense</td>
-								<td class="capitalize">{{ pokemon.stats[2].base_stat }}</td>
-							</tr>
-							<tr>
-								<td>Sp. Atk</td>
-								<td class="capitalize">{{ pokemon.stats[3].base_stat }}</td>
-							</tr>
-							<tr>
-								<td>Sp. Def</td>
-								<td class="capitalize">{{ pokemon.stats[4].base_stat }}</td>
-							</tr>
-							<tr>
-								<td>Speed</td>
-								<td class="capitalize">{{ pokemon.stats[5].base_stat }}</td>
-							</tr>
-						</tbody>
+						<tr>
+							<td>HP</td>
+							<td class="capitalize">{{ pokemon.stats[0].base_stat }}</td>
+						</tr>
+						<tr>
+							<td>Attack</td>
+							<td class="capitalize">{{ pokemon.stats[1].base_stat }}</td>
+						</tr>
+						<tr>
+							<td>Defense</td>
+							<td class="capitalize">{{ pokemon.stats[2].base_stat }}</td>
+						</tr>
+						<tr>
+							<td>Sp. Atk</td>
+							<td class="capitalize">{{ pokemon.stats[3].base_stat }}</td>
+						</tr>
+						<tr>
+							<td>Sp. Def</td>
+							<td class="capitalize">{{ pokemon.stats[4].base_stat }}</td>
+						</tr>
+						<tr>
+							<td>Speed</td>
+							<td class="capitalize">{{ pokemon.stats[5].base_stat }}</td>
+						</tr>
 					</table>
 				</div>
 
-				<div v-if="activeTab === 'evolution'" id="evolution">
+				<div id="evolution" v-if="activeTab === 'evolution'">
 					<span
 						v-for="(evolution, index) in evolutions"
 						:key="evolution.name"
@@ -129,7 +134,22 @@
 					</span>
 				</div>
 
-				<div v-if="activeTab === 'moves'" id="moves">Moves Tab Content</div>
+				<div id="moves" v-if="activeTab === 'moves'">
+					<table>
+						<tr>
+							<th class="text-left">Move</th>
+							<th>Level learned at</th>
+						</tr>
+						<tr
+							v-for="(move, index) in pokemon.moves"
+							:key="move.name"
+							class="capitalize"
+						>
+							<td>{{ move.move.name.replace("-", " ") }}</td>
+							<td>{{ move.version_group_details[0].level_learned_at }}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -148,6 +168,7 @@ export default {
 
 		const pokemon = ref({})
 		const activeTab = ref("about") // sets the initial active tab
+		const pokemonTypes = ref()
 		const evolutions = ref([])
 
 		// fetch individual pokemon info from pokeapi
@@ -160,6 +181,17 @@ export default {
 				}
 				const data = await response.json()
 				console.log(data)
+				// adding types as classes to body element to add type color
+				const pokemonTypeNames = data.types.map(type => type.type.name)
+				document.body.classList.add(...pokemonTypeNames)
+				// add zeroes to pokemon id if it is less than 100
+				if (data.id < 100) {
+					data.id = data.id.toString().padStart(3, "0")
+				} else {
+					data.id = data.id.toString()
+				}
+
+				// Pokemon object
 				Object.assign(pokemon.value, data)
 			} catch (error) {
 				console.error(error)
@@ -219,7 +251,8 @@ export default {
 
 		// fetch information on component mount
 		onMounted(() => {
-			fetchPokemon(route.params.id)
+			fetchPokemon(route.params.id) // fetch pokemon data
+			fetchEvolutions(route.params.id) // fetch pokemon evolutions
 		})
 
 		return {
@@ -227,6 +260,7 @@ export default {
 			loading,
 			activeTab,
 			evolutions,
+			pokemonTypes,
 		}
 	},
 }
@@ -236,25 +270,40 @@ export default {
 #pokemon-detail-view {
 	#pokemon-main-info {
 		img {
+			max-width: 90%;
+			@media (min-width: 576px) {
+				width: 40%;
+			}
 			@media (min-width: 992px) {
 				max-width: 35%;
 			}
 		}
 	}
 	#pokemon-detailed-info {
+		margin-top: -70px;
 		ul {
 			li {
+				color: grey;
 				cursor: pointer;
 				&.active {
+					color: #000;
 					font-weight: bold;
+					&::after {
+						content: "";
+						background-color: grey;
+						display: block;
+						height: 2px;
+						margin-top: 4px;
+					}
 				}
 			}
 		}
 		table {
-			tbody {
-				tr {
-					td {
-						text-align: left;
+			tr {
+				td {
+					text-align: left;
+					&:first-child {
+						color: grey;
 					}
 				}
 			}
@@ -263,8 +312,8 @@ export default {
 }
 .custom-capitalize {
 	text-transform: capitalize;
-}
-.custom-capitalize:not(:first-word) {
-	text-transform: lowercase;
+	&:not(:first-word) {
+		text-transform: lowercase;
+	}
 }
 </style>
