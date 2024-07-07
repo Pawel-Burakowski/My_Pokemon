@@ -2,7 +2,7 @@
 	<div class="font-bold my-8 mx-5 text-xl">Pokédex</div>
 
 	<div
-		id="pokemon-list"
+		id="pokemon__list"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
 		<PokemonListElement
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import PokemonListElement from "./PokemonListElement.vue"
+import PokemonListElement from "../components/PokemonListElement.vue"
 import { onBeforeUnmount, onMounted, reactive, toRefs } from "vue"
 
 export default {
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#pokemon-list {
+#pokemon__list {
 	@media (min-width: 992px) {
 		//max-width: 1140px;
 		//width: 90%;
