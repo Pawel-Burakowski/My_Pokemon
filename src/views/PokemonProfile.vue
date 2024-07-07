@@ -127,31 +127,54 @@
 				</div>
 
 				<!-- EVOLUTION -->
-				<div id="evolution" v-if="activeTab === 'evolution'">
-					<span
+				<div
+					id="evolution"
+					v-if="activeTab === 'evolution'"
+					class="flex flex-row justify-center flex-wrap"
+				>
+					<div
 						v-for="(evolution, index) in evolutions"
 						:key="evolution.name"
-						class="capitalize"
+						class="evolution-element mx-6 my-4"
 					>
-						<span v-if="index !== 0">,</span>
-						{{ evolution.name }}
-					</span>
+						<router-link
+							v-if="evolution.id != pokemon.originalPokemonId"
+							:to="`/pokemon/${evolution.id}`"
+						>
+							<img :src="evolution.image" :alt="evolution.name" />
+							<span class="capitalize text-lg">{{ evolution.name }}</span>
+							<div class="text-sm">
+								Trigger: {{ evolution.evolutionTrigger.replace("-", " ") }}
+							</div>
+						</router-link>
+						<div v-else>
+							<img :src="evolution.image" :alt="evolution.name" />
+							<span class="capitalize text-lg">{{ evolution.name }}</span>
+							<div class="text-sm">
+								Trigger: {{ evolution.evolutionTrigger.replace("-", " ") }}
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- MOVES -->
 				<div id="moves" v-if="activeTab === 'moves'">
 					<table>
-						<tr>
-							<th class="text-left">Move</th>
+						<tr class="text-left">
+							<th>Move</th>
 							<th>Level</th>
+							<th>Effect</th>
 						</tr>
 						<tr
 							v-for="(move, index) in pokemon.moves"
 							:key="move.name"
-							class="capitalize"
+							class="align-top"
 						>
-							<td>{{ move.move.name.replace("-", " ") }}</td>
-							<td>{{ move.version_group_details[0].level_learned_at }}</td>
+							<td class="capitalize">{{ move.move.name.replace("-", " ") }}</td>
+							<td class="capitalize text-center">
+								{{ move.version_group_details[0].level_learned_at }}
+							</td>
+							<td>{{ move.move.info }}</td>
 						</tr>
 					</table>
 				</div>
@@ -188,6 +211,7 @@ export default {
 				const pokemonTypeNames = data.types.map(type => type.type.name)
 				document.body.classList.add(...pokemonTypeNames)
 				pokemonTypes = pokemonTypeNames
+				data.originalPokemonId = data.id
 
 				// add zeroes to pokemon id if it is less than 100
 				if (data.id < 100) {
@@ -200,6 +224,19 @@ export default {
 				data.height = data.height * 10
 				// weight - transform from hectograms to kilograms
 				data.weight = data.weight / 10
+
+				// sort moves in ascending order based on level_learned_at (and removed if level is zero)
+				data.moves = data.moves.filter(
+					move => move.version_group_details[0].level_learned_at !== 0
+				)
+				data.moves.sort((a, b) => {
+					const levelA = a.version_group_details[0].level_learned_at
+					const levelB = b.version_group_details[0].level_learned_at
+					return levelA - levelB
+				})
+				for (const move of data.moves) {
+					move.move.info = await fetchMovesInfo(move.move.url)
+				}
 
 				// Pokemon object
 				Object.assign(pokemon.value, data)
@@ -227,28 +264,67 @@ export default {
 					)
 				}
 				const evolutionChainData = await evolutionChainResponse.json()
-				const evolutionsData = parseEvolutionChain(evolutionChainData.chain)
+				console.log("evolutionChainData")
+				console.log(evolutionChainData)
+				const evolutionsData = await parseEvolutionChain(
+					evolutionChainData.chain
+				)
 				evolutions.value = evolutionsData
 				console.log(evolutions.value)
 			} catch (error) {
 				console.error(error)
 			}
 		}
+
 		// parse the evolution chain data recursively to extract the evolution names
-		const parseEvolutionChain = chain => {
+		const parseEvolutionChain = async chain => {
 			const evolutionsData = []
 			const { species, evolves_to } = chain
-			evolutionsData.push({
-				id: species.url.split("/").slice(-2, -1)[0],
-				name: species.name,
-			})
-			if (evolves_to.length) {
-				evolves_to.forEach(evolution => {
-					const subEvolutions = parseEvolutionChain(evolution)
-					evolutionsData.push(...subEvolutions)
+
+			const id = species.url.split("/").slice(-2, -1)[0]
+			const name = species.name
+			const evolutionTrigger =
+				chain.evolves_to[0].evolution_details[0].trigger.name
+
+			try {
+				const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+				if (!response.ok) {
+					throw new Error("Failed to fetch evolution image from the PokéAPI")
+				}
+				const data = await response.json()
+				const image = data.sprites.other["official-artwork"].front_default
+				evolutionsData.push({
+					id,
+					name,
+					image,
+					evolutionTrigger,
 				})
+				if (evolves_to.length) {
+					for (const evolution of evolves_to) {
+						const subEvolutions = await parseEvolutionChain(evolution)
+						evolutionsData.push(...subEvolutions)
+					}
+				}
+			} catch (error) {
+				console.error(error)
 			}
 			return evolutionsData
+		}
+
+		// fetch pokemon moves info
+		const fetchMovesInfo = async moveUrl => {
+			let moveInfo = ""
+			try {
+				const response = await fetch(`${moveUrl}`)
+				if (!response.ok) {
+					throw new Error("Failed to fetch move information from the PokéAPI")
+				}
+				const data = await response.json()
+				moveInfo = data.effect_entries[0].short_effect
+			} catch (error) {
+				console.error(error)
+			}
+			return moveInfo
 		}
 
 		// watch for changes in route params
@@ -315,13 +391,34 @@ export default {
 		table {
 			tr {
 				th {
-                        padding: 3px 12px;
-                    }
-				td {
 					padding: 3px 12px;
+				}
+				td {
+					padding: 2px 12px;
 					text-align: left;
+					&.text-center {
+						text-align: center !important;
+					}
 					&:first-child {
 						color: grey;
+					}
+				}
+			}
+		}
+		#moves {
+			table tr td {
+				padding: 6px 12px;
+			}
+		}
+		#evolution {
+			.evolution-element {
+				width: 55%;
+				@media (min-width: 992px) {
+					width: 20%;
+				}
+				div {
+					img {
+						opacity: 0.6;
 					}
 				}
 			}
