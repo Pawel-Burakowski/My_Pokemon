@@ -179,12 +179,103 @@
 											</td>
 										</tr>
 
-										<!-- Level up -->
+										<!-- TURN UPSIDE DOWN -->
+										<template
+											v-if="evolution.evolutionDetails.turn_upside_down"
+										>
+											<tr>
+												<td>Turn Upside Down</td>
+												<td class="capitalize">
+													{{ evolution.evolutionDetails.turn_upside_down }}
+												</td>
+											</tr>
+										</template>
+
+										<!-- LOCATION -->
+										<template
+											v-if="
+												evolution.evolutionDetails.location &&
+												evolution.evolutionDetails.location.name
+											"
+										>
+											<tr>
+												<td>Location</td>
+												<td class="capitalize">
+													{{
+														evolution.evolutionDetails.location.name.replace(
+															"-",
+															" "
+														)
+													}}
+												</td>
+											</tr>
+										</template>
+
+										<!-- Level up MIN LEVEL-->
 										<template v-if="evolution.evolutionDetails.min_level">
 											<tr>
 												<td>Min. level</td>
 												<td class="capitalize">
 													{{ evolution.evolutionDetails.min_level }}
+												</td>
+											</tr>
+										</template>
+
+										<!-- LEVEL UP MIN HAPPINESS -->
+										<template v-if="evolution.evolutionDetails.min_happiness">
+											<tr>
+												<td>Min. happiness</td>
+												<td class="capitalize">
+													{{ evolution.evolutionDetails.min_happiness }}
+												</td>
+											</tr>
+										</template>
+
+										<!-- LEVEL UP MIN BEAUTY -->
+										<template v-if="evolution.evolutionDetails.min_beauty">
+											<tr>
+												<td>Min. beauty</td>
+												<td class="capitalize">
+													{{ evolution.evolutionDetails.min_beauty }}
+												</td>
+											</tr>
+										</template>
+
+										<!-- LEVEL UP MIN AFFECTION -->
+										<template v-if="evolution.evolutionDetails.min_affection">
+											<tr>
+												<td>Min. affection</td>
+												<td class="capitalize">
+													{{ evolution.evolutionDetails.min_affection }}
+												</td>
+											</tr>
+										</template>
+
+										<!-- ITEM -->
+										<template v-if="evolution.evolutionDetails.item">
+											<tr>
+												<td>Item</td>
+												<td class="capitalize">
+													{{
+														evolution.evolutionDetails.item.name.replace(
+															"-",
+															" "
+														)
+													}}
+												</td>
+											</tr>
+										</template>
+
+										<!-- LEVEL UP MIN AFFECTION -->
+										<template
+											v-if="evolution.evolutionDetails.relative_physical_stats"
+										>
+											<tr>
+												<td>Relative Physical Stats</td>
+												<td class="capitalize">
+													{{
+														evolution.evolutionDetails.relative_physical_stats
+													}}
 												</td>
 											</tr>
 										</template>
@@ -348,6 +439,7 @@ export default {
 			() => route.params.id,
 			newId => {
 				fetchPokemon(newId)
+				fetchEvolutionChain(newId)
 			}
 		)
 
