@@ -1,7 +1,26 @@
 <template>
 	<div class="font-bold my-8 mx-5 text-xl">Pokédex</div>
 
+	<SearchBar
+		:pokemonData="allPokemon"
+		@search-result="setSearchResults"
+	></SearchBar>
+
 	<div
+		v-if="searchResults"
+		id="pokemon__list"
+		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
+	>
+		<PokemonListElement
+			v-for="pokemon in searchResults"
+			:key="pokemon.id"
+			:pokemon="pokemon"
+		>
+		</PokemonListElement>
+	</div>
+
+	<div
+		v-else
 		id="pokemon__list"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
@@ -18,17 +37,23 @@
 
 <script>
 import PokemonListElement from "../components/PokemonListElement.vue"
+import SearchBar from "../components/SearchBar.vue"
 import { onBeforeUnmount, onMounted, reactive, toRefs } from "vue"
 
 export default {
 	name: "PokemonList",
-	components: { PokemonListElement },
+	components: { PokemonListElement, SearchBar },
 	setup() {
 		const state = reactive({
 			allPokemon: [],
 			offset: 0,
 			loading: false,
+			searchResults: null,
 		})
+
+		const setSearchResults = results => {
+			state.searchResults = results
+		}
 
 		const loadPokemon = async () => {
 			state.loading = true
@@ -77,6 +102,7 @@ export default {
 		return {
 			...toRefs(state),
 			loadPokemon,
+			setSearchResults,
 		}
 	},
 }
