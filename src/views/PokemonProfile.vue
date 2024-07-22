@@ -79,6 +79,10 @@
 							<td class="capitalize">{{ pokemon.species.name }}</td>
 						</tr>
 						<tr>
+							<td v-if="speciesInfo" class="flex">Info</td>
+							<td>{{ speciesInfo }}</td>
+						</tr>
+						<tr>
 							<td>Height</td>
 							<td>{{ pokemon.height }}cm</td>
 						</tr>
@@ -87,7 +91,7 @@
 							<td>{{ pokemon.weight }}kg</td>
 						</tr>
 						<tr>
-							<td>Abilities</td>
+							<td class="flex">Abilities</td>
 							<td>
 								<span
 									v-for="(ability, index) in pokemon.abilities"
@@ -325,6 +329,7 @@ export default {
 		const activeTab = ref("about") // sets the initial active tab
 		let pokemonTypes = ref()
 		const evolutionChain = ref([]) // current pokemon evolutions
+		const speciesInfo = ref() // pokemon species info
 
 		// fetch individual pokemon info from pokeapi
 		async function fetchPokemon(id) {
@@ -383,6 +388,24 @@ export default {
 					`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
 				)
 				const speciesData = await speciesResponse.json()
+
+				// here we get species info to show in DOM
+				if (speciesData.flavor_text_entries[0]) {
+					const flavorText = String(
+						speciesData.flavor_text_entries[0].flavor_text
+					)
+
+					// remove special characters that are returned from api
+					const cleanedFlavorText = flavorText
+						.replace(/\f/g, "\n")
+						.replace(/\u00ad\n/g, "")
+						.replace(/\u00ad/g, "")
+						.replace(/ -\n/g, " - ")
+						.replace(/-\n/g, "-")
+						.replace(/\n/g, " ")
+					speciesInfo.value = cleanedFlavorText
+				}
+
 				const evolutionChainUrl = speciesData.evolution_chain.url
 				const evolutionChainResponse = await fetch(evolutionChainUrl)
 				const evolutionChainData = await evolutionChainResponse.json()
@@ -395,6 +418,8 @@ export default {
 				console.error(error)
 			}
 		}
+
+		// get evolution chain relevant info to show later in DOM
 		const parseEvolutionChain = chain => {
 			const evolutionsData = []
 			const { species, evolves_to } = chain
@@ -459,6 +484,7 @@ export default {
 			loading,
 			pokemon,
 			pokemonTypes,
+			speciesInfo,
 		}
 	},
 }

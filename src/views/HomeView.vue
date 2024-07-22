@@ -14,6 +14,18 @@
 				<span class="categories_element_text">Pokédex</span>
 				<img class="categories_element_svg" :src="pokeballSVG" alt="Pokeball" />
 			</li>
+
+			<li
+				class="categories_element overflow-hidden relative rounded-2xl cursor-pointer my-5 px-1.5 py-4"
+				@click="$router.push({ name: 'ItemsList' })"
+			>
+				<span class="categories_element_text">Items</span>
+				<img
+					class="categories_element_svg absolute m-0 h-auto max-w-none"
+					:src="pokeballSVG"
+					alt="Pokeball"
+				/>
+			</li>
 		</ul>
 	</div>
 </template>

@@ -4,10 +4,15 @@
 	<SearchBar
 		:pokemonData="allPokemon"
 		@search-result="setSearchResults"
+		@empty-result="setEmptyResults"
 	></SearchBar>
 
+	<div v-if="emptySearch" class="p-7">
+		No results found, please enter a correct pokémon name or ID.
+	</div>
+
 	<div
-		v-if="searchResults"
+		v-if="searchResults && !emptySearch"
 		id="pokemon__list"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
@@ -20,7 +25,7 @@
 	</div>
 
 	<div
-		v-else
+		v-else-if="!searchResults && !emptySearch"
 		id="pokemon__list"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
@@ -38,7 +43,7 @@
 <script>
 import PokemonListElement from "../components/PokemonListElement.vue"
 import SearchBar from "../components/SearchBar.vue"
-import { onBeforeUnmount, onMounted, reactive, toRefs } from "vue"
+import { onBeforeUnmount, onMounted, reactive, ref, toRefs } from "vue"
 
 export default {
 	name: "PokemonList",
@@ -51,8 +56,14 @@ export default {
 			searchResults: null,
 		})
 
+		// pokemon search with SearchBar
+		const emptySearch = ref(false)
 		const setSearchResults = results => {
 			state.searchResults = results
+			emptySearch.value = false
+		}
+		const setEmptyResults = () => {
+			emptySearch.value = true
 		}
 
 		const loadPokemon = async () => {
@@ -72,6 +83,7 @@ export default {
 						state.allPokemon.sort((a, b) => a.id - b.id)
 						state.offset += 40
 						state.loading = false
+						emptySearch.value = false
 					})
 				})
 		}
@@ -101,7 +113,9 @@ export default {
 
 		return {
 			...toRefs(state),
+			emptySearch,
 			loadPokemon,
+			setEmptyResults,
 			setSearchResults,
 		}
 	},
@@ -109,10 +123,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#pokemon__list {
-	@media (min-width: 992px) {
-		//max-width: 1140px;
-		//width: 90%;
-	}
-}
+
 </style>

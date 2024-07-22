@@ -8,12 +8,9 @@
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router"
-import HomeView from "./views/HomeView.vue"
 </script>
 
 <style lang="scss">
-$brand-color-01: #4fc1a6;
-
 #app {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
@@ -43,6 +40,7 @@ $brand-color-01: #4fc1a6;
 		font-weight: 500;
 		line-height: 1.5rem;
 	}
+	/*
 	.brand-color-01-background {
 		background-color: $brand-color-01;
 		color: #fff;
@@ -51,5 +49,6 @@ $brand-color-01: #4fc1a6;
 			background-color: darken($brand-color-01, 15%);
 		}
 	}
+	*/
 }
 </style>
