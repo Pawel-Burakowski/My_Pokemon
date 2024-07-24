@@ -1,5 +1,6 @@
 <template>
-	<div
+	<router-link
+		:to="`/item/${item.id}`"
 		v-if="item.sprites.default"
 		class="item__list__element px-2 py-4 m-1.5 rounded-2xl cursor-pointer flex"
 	>
@@ -18,7 +19,7 @@
 		>
 			{{ item.name.replace("-", " ") }}
 		</div>
-	</div>
+	</router-link>
 </template>
 
 <script>

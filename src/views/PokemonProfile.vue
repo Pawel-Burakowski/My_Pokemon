@@ -91,7 +91,7 @@
 							<td>{{ pokemon.weight }}kg</td>
 						</tr>
 						<tr>
-							<td class="flex">Abilities</td>
+							<td>Abilities</td>
 							<td>
 								<span
 									v-for="(ability, index) in pokemon.abilities"
