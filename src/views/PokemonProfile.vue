@@ -84,11 +84,11 @@
 						</tr>
 						<tr>
 							<td>Height</td>
-							<td>{{ pokemon.height }}cm</td>
+							<td>{{ pokemon.height }} cm</td>
 						</tr>
 						<tr>
 							<td>Weight</td>
-							<td>{{ pokemon.weight }}kg</td>
+							<td>{{ pokemon.weight }} kg</td>
 						</tr>
 						<tr>
 							<td>Abilities</td>
@@ -452,6 +452,7 @@ export default {
 				const data = await response.json()
 				if (data.effect_entries.length) {
 					moveInfo = data.effect_entries[0].short_effect
+					moveInfo = moveInfo.replace(/\$.*?%/g, '')
 				}
 			} catch (error) {
 				console.error(error)
@@ -509,6 +510,7 @@ export default {
 			li {
 				color: grey;
 				cursor: pointer;
+				letter-spacing: 1px;
 				&.active {
 					color: #000;
 					font-weight: bold;
@@ -525,6 +527,7 @@ export default {
 		table {
 			tr {
 				th {
+					letter-spacing: 1px;
 					padding: 3px 12px;
 				}
 				td {

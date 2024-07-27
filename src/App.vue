@@ -11,11 +11,12 @@ import { RouterLink, RouterView } from "vue-router"
 </script>
 
 <style lang="scss">
+//$brand-color-01: #4fc1a6;
 #app {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	color: #2c3e50;
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	//font-family: Avenir, Helvetica, Arial, sans-serif;
 	text-align: center;
 
 	#nav {
@@ -40,15 +41,14 @@ import { RouterLink, RouterView } from "vue-router"
 		font-weight: 500;
 		line-height: 1.5rem;
 	}
-	/*
-	.brand-color-01-background {
-		background-color: $brand-color-01;
-		color: #fff;
-		&:hover,
-		&.active {
-			background-color: darken($brand-color-01, 15%);
-		}
-	}
-	*/
+
+	// .brand-color-01-background {
+	// 	background-color: $brand-color-01;
+	// 	color: #fff;
+	// 	&:hover,
+	// 	&.active {
+	// 		background-color: darken($brand-color-01, 15%);
+	// 	}
+	// }
 }
 </style>
