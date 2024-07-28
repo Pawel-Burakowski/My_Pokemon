@@ -48,6 +48,7 @@ $breakpoint-min-desktop: 768px;
 	padding: 12px;
 	.categories {
 		.categories_element {
+			background-color: #42b983;
 			border-radius: 16px;
 			cursor: pointer;
 			overflow: hidden;
@@ -56,6 +57,11 @@ $breakpoint-min-desktop: 768px;
 			.categories_element_text {
 				font-size: 1.25rem;
 				font-weight: 500;
+				transition: color 0.4s, font-weight 0.3s;
+			}
+			&:hover .categories_element_text {
+				color: white;
+				font-weight: bold;
 			}
 			.categories_element_svg {
 				height: auto;

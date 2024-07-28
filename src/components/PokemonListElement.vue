@@ -6,26 +6,26 @@
 		:class="pokemon.types.map(type => type.type.name).join(' ')"
 	>
 		<img
-			class="pokemon-list-element-image mx-auto block"
+			class="pokemon-list-element__image mx-auto block"
 			:src="pokemon.sprites.other['official-artwork'].front_default"
 			:alt="'Image of ' + pokemon.name"
 		/>
 
 		<div
-			class="pokemon-list-element-name text-lg capitalize font-semibold text-white truncate"
+			class="pokemon-list-element__name text-lg capitalize font-semibold text-white truncate"
 		>
 			{{ pokemon.name.replace("-", " ") }}
 		</div>
 
-		<div class="pokemon-list-element-number text-white">{{ formattedId }}</div>
+		<div class="pokemon-list-element__number text-white">{{ formattedId }}</div>
 
 		<div
-			class="pokemon-list-element-types-container flex flex-row flex-wrap justify-center mt-1"
+			class="pokemon-list-element__types-container flex flex-row flex-wrap justify-center mt-1"
 		>
 			<div
 				v-for="type in pokemon.types"
 				:key="type.type.name"
-				class="pokemon-element-types text-white px-1.5 py-0.5 rounded-lg text-sm mx-1"
+				class="pokemon-list-element__types text-white px-1.5 py-0.5 rounded-lg text-sm mx-1"
 			>
 				{{ type.type.name }}
 			</div>
@@ -74,7 +74,7 @@ export default {
 
 	background-color: #b9b7b7;
 
-	.pokemon-element-types {
+	.pokemon-list-element__types {
 		background-color: darken(#b9b7b7, 8%);
 	}
 }

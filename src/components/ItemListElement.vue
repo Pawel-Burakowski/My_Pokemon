@@ -2,20 +2,20 @@
 	<router-link
 		:to="`/item/${item.id}`"
 		v-if="item.sprites.default"
-		class="item__list__element px-2 py-4 m-1.5 rounded-2xl cursor-pointer flex"
+		class="item-list-element px-2 py-4 m-1.5 rounded-2xl cursor-pointer flex"
 	>
-		<div class="item__list__element-number text-white text-lg px-2">
+		<div class="item-list-element__number text-white text-lg px-2">
 			{{ formattedId }}
 		</div>
 
 		<img
-			class="item__list__element-image block px-2"
+			class="item-list-element__image block px-2"
 			:src="item.sprites.default"
 			:alt="'Image of ' + item.name"
 		/>
 
 		<div
-			class="item__list__element-name text-lg capitalize font-semibold text-white truncate px-2"
+			class="item-list-element__name text-lg capitalize font-semibold text-white truncate px-2"
 		>
 			{{ item.name.replace("-", " ") }}
 		</div>
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item__list__element {
+.item-list-element {
 	width: 100%;
 	@media (min-width: 768px) {
 		width: 30%;

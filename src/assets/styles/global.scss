@@ -26,14 +26,16 @@ $pokemon-type-color: (
 @each $type, $color in $pokemon-type-color {
 	.#{$type} {
 		background-color: $color !important;
-		.pokemon-element-types {
+		.pokemon__element-types,
+		.pokemon-list-element__types {
 			background-color: darken($color, 8%) !important;
 		}
 	}
 }
 
 // STYLES
-.pokemon-element-types {
+.pokemon__element-types,
+.pokemon-list-element__types {
 	height: fit-content;
 	width: fit-content;
 }
@@ -44,14 +46,19 @@ $pokemon-type-color: (
 
 // FONTS
 body {
-    font-family: 'Lato', sans-serif;
+	font-family: "Lato", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 3px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Montserrat", sans-serif;
+	letter-spacing: 3px;
 }
 
 .font-semibold {
-    letter-spacing: 3px;
+	letter-spacing: 3px;
 }

@@ -13,7 +13,7 @@
 
 	<div
 		v-if="searchResults && !emptySearch"
-		id="pokemon__list"
+		id="pokemon-list-search"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
 		<PokemonListElement
@@ -26,7 +26,7 @@
 
 	<div
 		v-else-if="!searchResults && !emptySearch"
-		id="pokemon__list"
+		id="pokemon-list-default"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
 		<PokemonListElement
@@ -122,6 +122,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -2,7 +2,7 @@
 	<div class="font-bold my-8 mx-5 text-xl">Items</div>
 
 	<div
-		id="items__list__page"
+		id="items-list-page"
 		class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 	>
 		<ItemListElement
@@ -46,7 +46,7 @@ export default {
 							})
 					})
 					Promise.all(promises).then(() => {
-						//state.allItems.sort((a, b) => a.id - b.id)
+						state.allItems.sort((a, b) => a.id - b.id)
 						state.offset += 40
 						state.loading = false
 					})

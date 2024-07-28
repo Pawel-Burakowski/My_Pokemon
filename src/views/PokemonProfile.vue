@@ -22,7 +22,7 @@
 							<span
 								v-for="type in pokemon.types"
 								:key="type.type.name"
-								class="pokemon-element-types text-white px-2 py-1 rounded-lg text-sm mx-1"
+								class="pokemon__element-types text-white px-2 py-1 rounded-lg text-sm mx-1"
 							>
 								{{ type.type.name }}
 							</span>
@@ -145,14 +145,14 @@
 					<div
 						v-for="(evolution, index) in evolutionChain"
 						:key="evolution.id"
-						class="evolution-element mx-6 my-4"
+						class="evolution__element mx-6 my-4"
 					>
 						<router-link
 							:to="`/pokemon/${evolution.id}`"
 							class="flex flex-nowrap items-center"
 							:class="[
 								pokemon.originalPokemonId == evolution.id
-									? 'current-pokemon'
+									? 'evolution__element-current-pokemon'
 									: '',
 							]"
 						>
@@ -452,7 +452,7 @@ export default {
 				const data = await response.json()
 				if (data.effect_entries.length) {
 					moveInfo = data.effect_entries[0].short_effect
-					moveInfo = moveInfo.replace(/\$.*?%/g, '')
+					moveInfo = moveInfo.replace(/\$.*?%/g, "")
 				}
 			} catch (error) {
 				console.error(error)
@@ -548,7 +548,7 @@ export default {
 			}
 		}
 		#evolution {
-			.evolution-element {
+			.evolution__element {
 				a {
 					flex-direction: column;
 					@media (min-width: 992px) {
@@ -561,7 +561,8 @@ export default {
 						}
 					}
 				}
-				& > .current-pokemon {
+				& > .evolution__element-current-pokemon {
+					cursor: auto;
 					opacity: 0.6;
 				}
 			}
