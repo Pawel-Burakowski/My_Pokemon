@@ -1,5 +1,5 @@
 <template>
-	<div id="home" class="max-w-3xl ml-auto mr-auto">
+	<div id="home" class="fade-in-element p-3 max-w-3xl ml-auto mr-auto">
 		<h1 class="poketitle">My Pokémon Project</h1>
 		<p class="poketext mt-8 ml-auto mr-auto max-w-sm">
 			Here you can find some categories to choose from to learn more about the

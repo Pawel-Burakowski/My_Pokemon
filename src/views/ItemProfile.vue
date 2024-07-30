@@ -1,13 +1,20 @@
 <template>
-	<div id="item-detail-view" class="mx-3">
+	<div id="item-detail-view" class="fade-in-element mx-3">
 		<div
 			@click="$router.push({ name: 'ItemsList' })"
-			class="max-w-4xl ml-auto mr-auto mb-5 text-white text-md text-left cursor-pointer"
+			class="max-w-4xl ml-auto mr-auto mb-8 text-left cursor-pointer"
 		>
-			Go back
+			<img
+				class="inline-block h-3 w-auto"
+				:src="backArrowSVG"
+				alt="Back arrow"
+			/>
+			<span class="inline-block ml-2 text-white text-md">Go back</span>
 		</div>
 
-		<div v-if="loading">Loading...</div>
+		<div v-if="loading" class="block my-8 mx-5 text-lg w-full">
+			<Loader color="#fff"></Loader>
+		</div>
 
 		<div v-else class="max-w-4xl ml-auto mr-auto pb-10">
 			<div id="item-main-info">
@@ -53,7 +60,11 @@
 				</ul>
 
 				<!-- ABOUT -->
-				<div id="about" v-if="activeTab === 'about'">
+				<div
+					id="about"
+					v-if="activeTab === 'about'"
+					class="fade-in-element-fast"
+				>
 					<table>
 						<tr v-if="item.flavor_text_entries">
 							<td>Information</td>
@@ -110,7 +121,11 @@
 				</div>
 
 				<!-- EFFECTS -->
-				<div id="effects" v-if="activeTab === 'effects'">
+				<div
+					id="effects"
+					v-if="activeTab === 'effects'"
+					class="fade-in-element-fast"
+				>
 					<table>
 						<tr>
 							<td class="flex">Effect</td>
@@ -130,11 +145,16 @@
 </template>
 
 <script>
+import Loader from "../components/Loader.vue"
 import { ref, onBeforeUnmount, onMounted, watch } from "vue"
 import { useRoute } from "vue-router"
 
 export default {
 	name: "itemProfile",
+	components: {
+		Loader,
+	},
+
 	setup() {
 		const route = useRoute() // needed to get current item id
 		const loading = ref(false) // loader while waiting to receive item info
@@ -180,6 +200,7 @@ export default {
 			activeTab,
 			loading,
 			item,
+			backArrowSVG: "../src/assets/svg/back-arrow.svg",
 		}
 	},
 }

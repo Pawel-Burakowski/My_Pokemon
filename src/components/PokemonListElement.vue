@@ -2,7 +2,7 @@
 	<router-link
 		:to="`/pokemon/${pokemon.id}`"
 		v-if="pokemon.sprites.other['official-artwork'].front_default"
-		class="pokemon-list-element p-1.5 m-1.5 rounded-2xl cursor-pointer"
+		class="pokemon-list-element fade-in-element-fast p-1.5 m-1.5 rounded-2xl cursor-pointer"
 		:class="pokemon.types.map(type => type.type.name).join(' ')"
 	>
 		<img

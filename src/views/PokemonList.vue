@@ -1,5 +1,5 @@
 <template>
-	<div id="pokedex-view">
+	<div id="pokedex-view" class="fade-in-element">
 		<h1 class="font-bold my-8 mx-5 text-3xl">Pokédex</h1>
 
 		<SearchBar
@@ -37,11 +37,7 @@
 
 			<!-- show a loader while data is being fetched -->
 			<div v-if="loading" class="block my-8 mx-5 text-lg w-full">
-				<div class="loader">
-					<span class="loader__element"></span>
-					<span class="loader__element"></span>
-					<span class="loader__element"></span>
-				</div>
+				<Loader></Loader>
 			</div>
 		</div>
 	</div>
@@ -50,11 +46,12 @@
 <script>
 import PokemonListElement from "../components/PokemonListElement.vue"
 import SearchBar from "../components/SearchBar.vue"
+import Loader from "../components/Loader.vue"
 import { onBeforeUnmount, onMounted, reactive, ref, toRefs } from "vue"
 
 export default {
 	name: "PokemonList",
-	components: { PokemonListElement, SearchBar },
+	components: { PokemonListElement, SearchBar, Loader },
 	setup() {
 		const state = reactive({
 			allPokemon: [],
@@ -129,32 +126,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.loader {
-	overflow: hidden;
-	align-content: center;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	z-index: 100000;
-	.loader__element {
-		border-radius: 100%;
-		border: 3px solid #6366f1;
-		margin: 10px;
-		&:nth-child(1) {
-			animation: preloader 0.6s ease-in-out alternate infinite;
-		}
-		&:nth-child(2) {
-			animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
-		}
-		&:nth-child(3) {
-			animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
-		}
-	}
-}
-@keyframes preloader {
-	100% {
-		transform: scale(2);
-	}
-}
-</style>
+<style lang="scss" scoped></style>
