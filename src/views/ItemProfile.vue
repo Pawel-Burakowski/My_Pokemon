@@ -207,12 +207,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../src/assets/styles/global.scss";
+
 #item-detail-view {
 	#item-detailed-info {
 		img {
 			max-width: 20%;
 			width: 20%;
-			@media (min-width: 768px) {
+			@media (min-width: $breakpoint-min-desktop) {
 				max-width: 7%;
 				width: 7%;
 			}
@@ -253,12 +255,6 @@ export default {
 				}
 			}
 		}
-	}
-}
-.custom-capitalize {
-	text-transform: capitalize;
-	&:not(:first-word) {
-		text-transform: lowercase;
 	}
 }
 </style>

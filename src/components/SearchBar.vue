@@ -66,10 +66,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../src/assets/styles/global.scss";
+
 #searchbar {
 	input {
-		width: 70%;
-		@media (min-width: 992px) {
+		width: 60%;
+		@media (min-width: $breakpoint-min-desktop) {
 			width: 40%;
 		}
 	}

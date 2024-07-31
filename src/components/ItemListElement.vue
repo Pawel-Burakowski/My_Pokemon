@@ -50,16 +50,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../src/assets/styles/global.scss";
 .item-list-element {
 	width: 100%;
-	@media (min-width: 768px) {
+	@media (min-width: $breakpoint-min-desktop) {
 		width: 30%;
 	}
 	&:nth-child(odd) {
-		background-color: rgb(134 239 172);
+		background-color: $palette-color-03;
 	}
 	&:nth-child(even) {
-		background-color: rgb(167 139 250);
+		background-color: $palette-color-04;
+	}
+	&:hover {
+		opacity: 0.8;
 	}
 }
 </style>

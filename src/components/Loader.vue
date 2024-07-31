@@ -23,11 +23,11 @@ export default {
 
 <style lang="scss" scoped>
 .loader {
-	overflow: hidden;
 	align-content: center;
 	align-items: center;
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 	z-index: 100000;
 	.loader__element {
 		border-radius: 100%;

@@ -516,6 +516,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../src/assets/styles/global.scss";
+
 #pokemon-detail-view {
 	#pokemon-main-info {
 		img {
@@ -523,11 +525,12 @@ export default {
 			@media (min-width: 576px) {
 				width: 40%;
 			}
-			@media (min-width: 992px) {
+			@media (min-width: $breakpoint-min-desktop) {
 				max-width: 35%;
 			}
 		}
 	}
+
 	#pokemon-detailed-info {
 		margin-top: -60px;
 		ul {
@@ -548,39 +551,45 @@ export default {
 				}
 			}
 		}
+
 		table {
 			tr {
 				th {
 					letter-spacing: 1px;
 					padding: 3px 12px;
 				}
+
 				td {
 					padding: 2px 12px;
 					text-align: left;
+
 					&.text-center {
 						text-align: center !important;
 					}
+
 					&:first-child {
 						color: grey;
 					}
 				}
 			}
 		}
+
 		#moves {
 			table tr td {
 				padding: 6px 12px;
 			}
 		}
+
 		#evolution {
 			.evolution__element {
 				a {
 					flex-direction: column;
-					@media (min-width: 992px) {
+					@media (min-width: $breakpoint-min-desktop) {
 						flex-direction: row;
 					}
 					img {
 						width: 75%;
-						@media (min-width: 992px) {
+						@media (min-width: $breakpoint-min-desktop) {
 							width: 20%;
 						}
 					}
@@ -591,12 +600,6 @@ export default {
 				}
 			}
 		}
-	}
-}
-.custom-capitalize {
-	text-transform: capitalize;
-	&:not(:first-word) {
-		text-transform: lowercase;
 	}
 }
 </style>

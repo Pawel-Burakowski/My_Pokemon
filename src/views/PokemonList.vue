@@ -15,7 +15,7 @@
 		<div
 			v-if="searchResults && !emptySearch"
 			id="pokemon-list-search"
-			class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
+			class="pokemon-list-container max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 		>
 			<PokemonListElement
 				v-for="pokemon in searchResults"
@@ -24,22 +24,24 @@
 			>
 			</PokemonListElement>
 		</div>
+
 		<div
 			v-else-if="!searchResults && !emptySearch"
 			id="pokemon-list-default"
-			class="max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
+			class="pokemon-list-container max-w-7xl ml-auto mr-auto my-8 mx-5 flex flex-wrap justify-center"
 		>
 			<PokemonListElement
 				v-for="pokemon in allPokemon"
 				:key="pokemon.id"
 				:pokemon="pokemon"
 			></PokemonListElement>
-
-			<!-- show a loader while data is being fetched -->
-			<div v-if="loading" class="block my-8 mx-5 text-lg w-full">
-				<Loader></Loader>
-			</div>
 		</div>
+
+		<!-- show a loader while data is being fetched -->
+		<div v-if="loading" class="block my-8 mx-5 text-lg w-full">
+			<Loader></Loader>
+		</div>
+		
 	</div>
 </template>
 
@@ -126,4 +128,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
