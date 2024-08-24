@@ -35,7 +35,7 @@ export default {
 	name: "HomeView",
 	setup() {
 		return {
-			pokeballSVG: "../src/assets/svg/pokeball.svg",
+			pokeballSVG: "/svg/pokeball.svg",
 		}
 	},
 }

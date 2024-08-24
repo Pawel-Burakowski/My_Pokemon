@@ -509,7 +509,7 @@ export default {
 			pokemon,
 			pokemonTypes,
 			speciesInfo,
-			backArrowSVG: "../src/assets/svg/back-arrow.svg",
+			backArrowSVG: "/svg/back-arrow.svg",
 		}
 	},
 }

@@ -59,7 +59,7 @@ export default {
 			isSearchDisabled,
 			searchTerm,
 			search,
-			searchSVG: "./src/assets/svg/magnifying-glass.svg",
+			searchSVG: "/svg/magnifying-glass.svg",
 		}
 	},
 }

@@ -47,12 +47,6 @@ npm run dev
 npm run build
 ```
 
-- Vue
-- JavaScript
-- SCSS
-- Tailwind CSS
-- [PokéApi](https://pokeapi.co/)
-
 <br/>
 
 ## :clap: Acknowledgments
